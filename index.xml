@@ -172,7 +172,7 @@ font-style: inherit;">"</span>)</span>
 <div id="fig-pendulum" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pendulum-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div id="59a7a8f2" class="cell" data-renderings="[&quot;light&quot;,&quot;dark&quot;]" data-execution_count="1">
+<div id="0e58be6f" class="cell" data-renderings="[&quot;light&quot;,&quot;dark&quot;]" data-execution_count="1">
 <div class="cell-output cell-output-display light-content">
 <div>
 <figure class="figure">
@@ -1242,7 +1242,7 @@ font-style: inherit;">5</span>))</span></code></pre></div></div>
 <div id="fig-attractor" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-attractor-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div id="b749332b" class="cell" data-renderings="[&quot;light&quot;,&quot;dark&quot;]" data-execution_count="2">
+<div id="1c2d801d" class="cell" data-renderings="[&quot;light&quot;,&quot;dark&quot;]" data-execution_count="2">
 <div class="cell-output cell-output-display light-content">
 <div>
 <figure class="figure">
@@ -1414,7 +1414,7 @@ font-style: inherit;">3.6</span>))</span></code></pre></div></div>
 <div id="fig-separation" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-separation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div id="d0c62924" class="cell" data-renderings="[&quot;light&quot;,&quot;dark&quot;]" data-execution_count="3">
+<div id="ffdf175d" class="cell" data-renderings="[&quot;light&quot;,&quot;dark&quot;]" data-execution_count="3">
 <div class="cell-output cell-output-display light-content">
 <div>
 <figure class="figure">
@@ -1698,7 +1698,7 @@ font-style: inherit;">3.8</span>))</span></code></pre></div></div>
 <div id="fig-exponent" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-exponent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div id="e90eab9c" class="cell" data-renderings="[&quot;light&quot;,&quot;dark&quot;]" data-execution_count="2">
+<div id="9e1a0085" class="cell" data-renderings="[&quot;light&quot;,&quot;dark&quot;]" data-execution_count="2">
 <div class="cell-output cell-output-display light-content">
 <div>
 <figure class="figure">
@@ -1721,7 +1721,7 @@ Figure&nbsp;1: Lyapunov exponent of the logistic map. Negative spikes inside the
 </figure>
 </div>
 <p>At <img src="https://latex.codecogs.com/png.latex?r%20=%204"> the average settles very close to <img src="https://latex.codecogs.com/png.latex?%5Cln%202%20%5Capprox%200.6931">:</p>
-<div id="728548c6" class="cell" data-execution_count="3">
+<div id="e546bfae" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1">x, total, n <span class="op" style="color: #5E5E5E;
@@ -2579,7 +2579,7 @@ font-style: inherit;">4.2</span>))</span></code></pre></div></div>
 <div id="fig-bifurcation" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-bifurcation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div id="e7195016" class="cell" data-renderings="[&quot;light&quot;,&quot;dark&quot;]" data-execution_count="2">
+<div id="d4712b16" class="cell" data-renderings="[&quot;light&quot;,&quot;dark&quot;]" data-execution_count="2">
 <div class="cell-output cell-output-display light-content">
 <div>
 <figure class="figure">
@@ -2792,7 +2792,7 @@ font-style: inherit;">3.4</span>))</span></code></pre></div></div>
 <div id="fig-diagram" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-diagram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div id="797bc3b3" class="cell" data-renderings="[&quot;light&quot;,&quot;dark&quot;]" data-execution_count="2">
+<div id="8460fa0a" class="cell" data-renderings="[&quot;light&quot;,&quot;dark&quot;]" data-execution_count="2">
 <div class="cell-output cell-output-display light-content">
 <div>
 <figure class="figure">
@@ -3048,7 +3048,7 @@ font-style: inherit;">3.8</span>))</span></code></pre></div></div>
 <div id="fig-brusselator" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-brusselator-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div id="24dd0a4c" class="cell" data-renderings="[&quot;light&quot;,&quot;dark&quot;]" data-execution_count="3">
+<div id="1a9fbd53" class="cell" data-renderings="[&quot;light&quot;,&quot;dark&quot;]" data-execution_count="3">
 <div class="cell-output cell-output-display light-content">
 <div>
 <figure class="figure">
@@ -3438,7 +3438,7 @@ font-style: inherit;">5.5</span>))</span></code></pre></div></div>
 <div id="fig-annulus" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-annulus-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div id="a0210826" class="cell" data-renderings="[&quot;light&quot;,&quot;dark&quot;]" data-execution_count="2">
+<div id="69336be5" class="cell" data-renderings="[&quot;light&quot;,&quot;dark&quot;]" data-execution_count="2">
 <div class="cell-output cell-output-display light-content">
 <div>
 <figure class="figure">
@@ -3622,7 +3622,7 @@ font-style: inherit;">4.2</span>))</span></code></pre></div></div>
 <div id="fig-vdp" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-vdp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div id="d440bb4b" class="cell" data-renderings="[&quot;light&quot;,&quot;dark&quot;]" data-execution_count="3">
+<div id="33c64d09" class="cell" data-renderings="[&quot;light&quot;,&quot;dark&quot;]" data-execution_count="3">
 <div class="cell-output cell-output-display light-content">
 <div>
 <figure class="figure">
@@ -3952,7 +3952,7 @@ font-style: inherit;">3.6</span>))</span></code></pre></div></div>
 <div id="fig-energy" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-energy-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div id="9858febf" class="cell" data-renderings="[&quot;light&quot;,&quot;dark&quot;]" data-execution_count="2">
+<div id="9037da4d" class="cell" data-renderings="[&quot;light&quot;,&quot;dark&quot;]" data-execution_count="2">
 <div class="cell-output cell-output-display light-content">
 <div>
 <figure class="figure">
@@ -4247,7 +4247,7 @@ font-style: inherit;">"</span>)</span>
 <div id="fig-trace-det" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-trace-det-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div id="95296a31" class="cell" data-renderings="[&quot;light&quot;,&quot;dark&quot;]" data-execution_count="2">
+<div id="7dbee63d" class="cell" data-renderings="[&quot;light&quot;,&quot;dark&quot;]" data-execution_count="2">
 <div class="cell-output cell-output-display light-content">
 <div>
 <figure class="figure">
@@ -4481,7 +4481,7 @@ font-style: inherit;">7</span>))</span></code></pre></div></div>
 <div id="fig-portraits" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-portraits-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div id="677c8a38" class="cell" data-renderings="[&quot;light&quot;,&quot;dark&quot;]" data-execution_count="3">
+<div id="0192c6a3" class="cell" data-renderings="[&quot;light&quot;,&quot;dark&quot;]" data-execution_count="3">
 <div class="cell-output cell-output-display light-content">
 <div>
 <figure class="figure">
