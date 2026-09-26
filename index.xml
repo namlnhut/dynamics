@@ -10,7 +10,7 @@
 <atom:link href="https://dynamics.namln.org/index.xml" rel="self" type="application/rss+xml"/>
 <description>Notes on mathematics and dynamical systems.</description>
 <generator>quarto-1.10.18</generator>
-<lastBuildDate>Fri, 25 Sep 2026 17:00:00 GMT</lastBuildDate>
+<lastBuildDate>Sat, 26 Sep 2026 00:00:00 GMT</lastBuildDate>
 <item>
   <title>Stack test</title>
   <dc:creator>Nam Le</dc:creator>
@@ -172,7 +172,7 @@ font-style: inherit;">"</span>)</span>
 <div id="fig-pendulum" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pendulum-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div id="a45067d7" class="cell" data-renderings="[&quot;light&quot;,&quot;dark&quot;]" data-execution_count="1">
+<div id="59a7a8f2" class="cell" data-renderings="[&quot;light&quot;,&quot;dark&quot;]" data-execution_count="1">
 <div class="cell-output cell-output-display light-content">
 <div>
 <figure class="figure">
@@ -1049,7 +1049,7 @@ Le, Nam. 2026. <span>“Stack Test.”</span> September 26. <a href="https://dyn
 </div></div></section></div> ]]></description>
   <category>meta</category>
   <guid>https://dynamics.namln.org/posts/2026-09-26-stack-test/</guid>
-  <pubDate>Fri, 25 Sep 2026 17:00:00 GMT</pubDate>
+  <pubDate>Sat, 26 Sep 2026 00:00:00 GMT</pubDate>
 </item>
 <item>
   <title>The Lorenz system</title>
@@ -1470,7 +1470,7 @@ Le, Nam. 2026. <span>“The Lorenz System.”</span> September 12. <a href="http
   <category>chaos</category>
   <category>flows</category>
   <guid>https://dynamics.namln.org/posts/2026-09-12-lorenz-system/</guid>
-  <pubDate>Fri, 11 Sep 2026 17:00:00 GMT</pubDate>
+  <pubDate>Sat, 12 Sep 2026 00:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Lyapunov exponents of one-dimensional maps</title>
@@ -1839,7 +1839,7 @@ Maps.”</span> September 5. <a href="https://dynamics.namln.org/posts/2026-09-0
   <category>maps</category>
   <category>numerics</category>
   <guid>https://dynamics.namln.org/posts/2026-09-05-lyapunov-exponents/</guid>
-  <pubDate>Fri, 04 Sep 2026 17:00:00 GMT</pubDate>
+  <pubDate>Sat, 05 Sep 2026 00:00:00 GMT</pubDate>
 </item>
 <item>
   <title>The logistic map and period doubling</title>
@@ -2579,7 +2579,7 @@ font-style: inherit;">4.2</span>))</span></code></pre></div></div>
 <div id="fig-bifurcation" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-bifurcation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div id="4c82ac91" class="cell" data-renderings="[&quot;light&quot;,&quot;dark&quot;]" data-execution_count="2">
+<div id="e7195016" class="cell" data-renderings="[&quot;light&quot;,&quot;dark&quot;]" data-execution_count="2">
 <div class="cell-output cell-output-display light-content">
 <div>
 <figure class="figure">
@@ -2631,7 +2631,7 @@ August 29. <a href="https://dynamics.namln.org/posts/2026-08-29-logistic-map/">h
   <category>bifurcations</category>
   <category>chaos</category>
   <guid>https://dynamics.namln.org/posts/2026-08-29-logistic-map/</guid>
-  <pubDate>Fri, 28 Aug 2026 17:00:00 GMT</pubDate>
+  <pubDate>Sat, 29 Aug 2026 00:00:00 GMT</pubDate>
 </item>
 <item>
   <title>The Hopf bifurcation</title>
@@ -3094,7 +3094,7 @@ Le, Nam. 2026. <span>“The Hopf Bifurcation.”</span> August 22. <a href="http
   <category>bifurcations</category>
   <category>limit-cycles</category>
   <guid>https://dynamics.namln.org/posts/2026-08-22-hopf-bifurcation/</guid>
-  <pubDate>Fri, 21 Aug 2026 17:00:00 GMT</pubDate>
+  <pubDate>Sat, 22 Aug 2026 00:00:00 GMT</pubDate>
 </item>
 <item>
   <title>The Poincaré–Bendixson theorem</title>
@@ -3675,7 +3675,7 @@ Le, Nam. 2026. <span>“The Poincaré–Bendixson Theorem.”</span> August 15.
   <category>planar-systems</category>
   <category>limit-cycles</category>
   <guid>https://dynamics.namln.org/posts/2026-08-15-poincare-bendixson/</guid>
-  <pubDate>Fri, 14 Aug 2026 17:00:00 GMT</pubDate>
+  <pubDate>Sat, 15 Aug 2026 00:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Lyapunov functions and LaSalle’s principle</title>
@@ -4004,7 +4004,7 @@ Principle.”</span> August 8. <a href="https://dynamics.namln.org/posts/2026-08
 </div></div></section></div> ]]></description>
   <category>stability</category>
   <guid>https://dynamics.namln.org/posts/2026-08-08-lyapunov-functions/</guid>
-  <pubDate>Fri, 07 Aug 2026 17:00:00 GMT</pubDate>
+  <pubDate>Sat, 08 Aug 2026 00:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Linear systems in the plane</title>
@@ -4548,7 +4548,7 @@ Le, Nam. 2026. <span>“Linear Systems in the Plane.”</span> August 1. <a href
   <category>linear-systems</category>
   <category>planar-systems</category>
   <guid>https://dynamics.namln.org/posts/2026-08-01-linear-systems-in-the-plane/</guid>
-  <pubDate>Fri, 31 Jul 2026 17:00:00 GMT</pubDate>
+  <pubDate>Sat, 01 Aug 2026 00:00:00 GMT</pubDate>
 </item>
 </channel>
 </rss>
