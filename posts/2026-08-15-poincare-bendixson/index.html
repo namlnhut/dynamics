@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Nam Le">
+<meta name="dcterms.date" content="2026-08-15">
+<meta name="description" content="In the plane, a trajectory trapped away from equilibria has nowhere to go but a closed orbit. A tool for proving limit cycles exist.">
+
+<title>The Poincaré–Bendixson theorem – Dynamical Systems</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../assets/favicon.svg" rel="icon" type="image/svg+xml">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-cea4f62ce7817bf36d57384de3b7c12a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-b8c0f232dbf7569709fc0bd064a8fd0b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-cea4f62ce7817bf36d57384de3b7c12a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<!-- Site-wide LaTeX macros. Loaded before MathJax via include-in-header. -->
+<script>
+window.MathJax = {
+  tex: {
+    macros: {
+      R: "\\mathbb{R}",
+      N: "\\mathbb{N}",
+      dd: "\\mathrm{d}",
+      Fix: "\\operatorname{Fix}",
+      flow: "\\varphi",
+      tr: "\\operatorname{tr}"
+    }
+  }
+};
+</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../assets/css/styles.css">
+<meta property="og:title" content="The Poincaré–Bendixson theorem – Dynamical Systems">
+<meta property="og:description" content="In the plane, a trajectory trapped away from equilibria has nowhere to go but a closed orbit. A tool for proving limit cycles exist.">
+<meta property="og:image" content="https://dynamics.namln.org/posts/2026-08-15-poincare-bendixson/index_files/figure-html/cell-3-output-1.png">
+<meta property="og:site_name" content="Dynamical Systems">
+<meta property="og:image:alt" content="Phase portrait of the example system. Two dashed circles bound a trapping annulus; trajectories from inside and outside converge to a closed orbit between them.">
+<meta property="og:image:height" content="1039">
+<meta property="og:image:width" content="1078">
+<meta name="twitter:title" content="The Poincaré–Bendixson theorem – Dynamical Systems">
+<meta name="twitter:description" content="In the plane, a trajectory trapped away from equilibria has nowhere to go but a closed orbit. A tool for proving limit cycles exist.">
+<meta name="twitter:image" content="https://dynamics.namln.org/posts/2026-08-15-poincare-bendixson/index_files/figure-html/cell-3-output-1.png">
+<meta name="twitter:image:alt" content="Phase portrait of the example system. Two dashed circles bound a trapping annulus; trajectories from inside and outside converge to a closed orbit between them.">
+<meta name="twitter:image-height" content="1039">
+<meta name="twitter:image-width" content="1078">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="citation_title" content="The Poincaré–Bendixson theorem">
+<meta name="citation_author" content="Nam Le">
+<meta name="citation_publication_date" content="2026-08-15">
+<meta name="citation_cover_date" content="2026-08-15">
+<meta name="citation_year" content="2026">
+<meta name="citation_online_date" content="2026-08-15">
+<meta name="citation_fulltext_html_url" content="https://dynamics.namln.org/posts/2026-08-15-poincare-bendixson/">
+<meta name="citation_language" content="en">
+<meta name="citation_reference" content="citation_title=Nonlinear dynamics and chaos;,citation_author=Steven H. Strogatz;,citation_publication_date=2015;,citation_cover_date=2015;,citation_year=2015;">
+<meta name="citation_reference" content="citation_title=Differential equations, dynamical systems, and an introduction to chaos;,citation_author=Morris W. Hirsch;,citation_author=Stephen Smale;,citation_author=Robert L. Devaney;,citation_publication_date=2013;,citation_cover_date=2013;,citation_year=2013;">
+<meta name="citation_reference" content="citation_title=Nonlinear oscillations, dynamical systems, and bifurcations of vector fields;,citation_author=John Guckenheimer;,citation_author=Philip Holmes;,citation_publication_date=1983;,citation_cover_date=1983;,citation_year=1983;,citation_volume=42;,citation_series_title=Applied mathematical sciences;">
+<meta name="citation_reference" content="citation_title=Nonlinear systems;,citation_author=Hassan K. Khalil;,citation_publication_date=2002;,citation_cover_date=2002;,citation_year=2002;">
+<meta name="citation_reference" content="citation_title=Differential equations and dynamical systems;,citation_author=Lawrence Perko;,citation_publication_date=2001;,citation_cover_date=2001;,citation_year=2001;">
+<meta name="citation_reference" content="citation_title=Some extensions of Liapunov’s second method;,citation_author=J. P. LaSalle;,citation_publication_date=1960;,citation_cover_date=1960;,citation_year=1960;,citation_issue=4;,citation_volume=7;,citation_journal_title=IRE Transactions on Circuit Theory;">
+<meta name="citation_reference" content="citation_title=Deterministic nonperiodic flow;,citation_author=Edward N. Lorenz;,citation_publication_date=1963;,citation_cover_date=1963;,citation_year=1963;,citation_issue=2;,citation_volume=20;,citation_journal_title=Journal of the Atmospheric Sciences;">
+<meta name="citation_reference" content="citation_title=Simple mathematical models with very complicated dynamics;,citation_author=Robert M. May;,citation_publication_date=1976;,citation_cover_date=1976;,citation_year=1976;,citation_doi=10.1038/261459a0;,citation_volume=261;,citation_journal_title=Nature;">
+<meta name="citation_reference" content="citation_title=Quantitative universality for a class of nonlinear transformations;,citation_author=Mitchell J. Feigenbaum;,citation_publication_date=1978;,citation_cover_date=1978;,citation_year=1978;,citation_issue=1;,citation_doi=10.1007/BF01020332;,citation_volume=19;,citation_journal_title=Journal of Statistical Physics;">
+<meta name="citation_reference" content="citation_title=A rigorous ODE solver and Smale’s 14th problem;,citation_author=Warwick Tucker;,citation_publication_date=2002;,citation_cover_date=2002;,citation_year=2002;,citation_issue=1;,citation_volume=2;,citation_journal_title=Foundations of Computational Mathematics;">
+</head>
+
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Dynamical Systems</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Posts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="../../index.xml"> <i class="bi bi-rss" role="img" aria-label="RSS feed">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#a-worked-example" id="toc-a-worked-example" class="nav-link active" data-scroll-target="#a-worked-example">A worked example</a></li>
+  <li><a href="#the-van-der-pol-oscillator" id="toc-the-van-der-pol-oscillator" class="nav-link" data-scroll-target="#the-van-der-pol-oscillator">The van der Pol oscillator</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">The Poincaré–Bendixson theorem</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+  <div class="quarto-categories">
+    <div class="quarto-category">planar-systems</div>
+    <div class="quarto-category">limit-cycles</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    In the plane, a trajectory trapped away from equilibria has nowhere to go but a closed orbit. A tool for proving limit cycles exist.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Nam Le </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">15 August 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Equilibria are found by solving <span class="math inline">\(f(x) = 0\)</span>. Periodic orbits are much harder to find, since they are global objects. In the plane there is a clean topological criterion for their existence.</p>
+<div id="thm-pb" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 1 (Poincaré–Bendixson)</strong></span> Let <span class="math inline">\(f\)</span> be <span class="math inline">\(C^1\)</span> on an open set containing a closed bounded region <span class="math inline">\(R \subset \R^2\)</span>, and suppose <span class="math inline">\(R\)</span> contains no equilibria of <span class="math inline">\(\dot x = f(x)\)</span>. If some trajectory starts in <span class="math inline">\(R\)</span> and stays in <span class="math inline">\(R\)</span> for all <span class="math inline">\(t \geq 0\)</span>, then it is a closed orbit or it spirals toward a closed orbit as <span class="math inline">\(t \to \infty\)</span>. In either case <span class="math inline">\(R\)</span> contains a closed orbit.</p>
+</div>
+<p>The proof rests on the Jordan curve theorem: a closed curve splits the plane into an inside and an outside, so a planar trajectory cannot weave around itself the way it can in three dimensions <span class="citation" data-cites="perko2001">(<a href="#ref-perko2001" role="doc-biblioref">Perko 2001, sec. 3.7</a>)</span>. In practice the theorem is applied through trapping regions.</p>
+<div id="cor-trapping" class="theorem corollary">
+<p><span class="theorem-title"><strong>Corollary 1 (Trapping regions)</strong></span> Let <span class="math inline">\(R\)</span> be a closed annulus containing no equilibria. If the vector field points into <span class="math inline">\(R\)</span> everywhere on its boundary, then <span class="math inline">\(R\)</span> contains a closed orbit.</p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Any trajectory starting in <span class="math inline">\(R\)</span> can never leave it, so <a href="#thm-pb" class="quarto-xref">Theorem&nbsp;1</a> applies.</p>
+</div>
+<section id="a-worked-example" class="level2">
+<h2 class="anchored" data-anchor-id="a-worked-example">A worked example</h2>
+<div id="exm-annulus" class="theorem example">
+<p><span class="theorem-title"><strong>Example 1</strong></span> Following <span class="citation" data-cites="strogatz2015">Strogatz (<a href="#ref-strogatz2015" role="doc-biblioref">2015, sec. 7.3</a>)</span>, consider in polar coordinates <span id="eq-polar"><span class="math display">\[
+\dot r = r\,(1 - r^2 + \mu\cos\theta), \qquad \dot\theta = 1,
+\tag{1}\]</span></span> with <span class="math inline">\(0 &lt; \mu &lt; 1\)</span>. There are no equilibria except the origin, since <span class="math inline">\(\dot\theta = 1\)</span>. On a circle <span class="math inline">\(r = r_{\min}\)</span> with <span class="math inline">\(r_{\min}^2 &lt; 1 - \mu\)</span>, <span class="math display">\[
+1 - r_{\min}^2 + \mu\cos\theta \geq 1 - r_{\min}^2 - \mu &gt; 0,
+\]</span> so <span class="math inline">\(\dot r &gt; 0\)</span> and the flow points outward. On a circle <span class="math inline">\(r = r_{\max}\)</span> with <span class="math inline">\(r_{\max}^2 &gt; 1 + \mu\)</span>, the same bound in the other direction gives <span class="math inline">\(\dot r &lt; 0\)</span>. The annulus <span class="math inline">\(r_{\min} \leq r \leq r_{\max}\)</span> is therefore a trapping region, and by <a href="#cor-trapping" class="quarto-xref">Corollary&nbsp;1</a> it contains a closed orbit.</p>
+</div>
+<p><a href="#fig-annulus" class="quarto-xref">Figure&nbsp;1</a> shows the result for <span class="math inline">\(\mu = 0.5\)</span>: trajectories from inside and outside are drawn to a single closed orbit lying between the circles <span class="math inline">\(r = \sqrt{1 - \mu}\)</span> and <span class="math inline">\(r = \sqrt{1 + \mu}\)</span>.</p>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>mu <span class="op">=</span> <span class="fl">0.5</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> field(x):</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    r <span class="op">=</span> np.hypot(x[<span class="dv">0</span>], x[<span class="dv">1</span>])</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    g <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> r<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> (mu <span class="op">*</span> x[<span class="dv">0</span>] <span class="op">/</span> r <span class="cf">if</span> r <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="fl">0.0</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.array([x[<span class="dv">0</span>] <span class="op">*</span> g <span class="op">-</span> x[<span class="dv">1</span>], x[<span class="dv">1</span>] <span class="op">*</span> g <span class="op">+</span> x[<span class="dv">0</span>]])</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> np.linspace(<span class="op">-</span><span class="fl">1.8</span>, <span class="fl">1.8</span>, <span class="dv">40</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>X, Y <span class="op">=</span> np.meshgrid(g, g)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>R <span class="op">=</span> np.hypot(X, Y)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> R<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> mu <span class="op">*</span> np.divide(X, R, out<span class="op">=</span>np.zeros_like(X), where<span class="op">=</span>R <span class="op">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>U, W <span class="op">=</span> X <span class="op">*</span> G <span class="op">-</span> Y, Y <span class="op">*</span> G <span class="op">+</span> X</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>_, inner <span class="op">=</span> rk4(field, [<span class="fl">0.15</span>, <span class="fl">0.0</span>], <span class="dv">12</span>, h<span class="op">=</span><span class="fl">0.01</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>_, outer <span class="op">=</span> rk4(field, [<span class="fl">1.75</span>, <span class="fl">0.0</span>], <span class="dv">12</span>, h<span class="op">=</span><span class="fl">0.01</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>_, cycle <span class="op">=</span> rk4(field, inner[<span class="op">-</span><span class="dv">1</span>], <span class="dv">2</span> <span class="op">*</span> np.pi, h<span class="op">=</span><span class="fl">0.01</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>phi <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">2</span> <span class="op">*</span> np.pi, <span class="dv">200</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> draw(fig, ax, c):</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    ax.streamplot(X, Y, U, W, color<span class="op">=</span>c.muted, density<span class="op">=</span><span class="fl">0.8</span>, linewidth<span class="op">=</span><span class="fl">0.5</span>, arrowsize<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> rad <span class="kw">in</span> (np.sqrt(<span class="dv">1</span> <span class="op">-</span> mu), np.sqrt(<span class="dv">1</span> <span class="op">+</span> mu)):</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        ax.plot(rad <span class="op">*</span> np.cos(phi), rad <span class="op">*</span> np.sin(phi), <span class="st">"--"</span>, color<span class="op">=</span>c.fg, lw<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    ax.plot(inner[:, <span class="dv">0</span>], inner[:, <span class="dv">1</span>], color<span class="op">=</span>c.accent2, lw<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    ax.plot(outer[:, <span class="dv">0</span>], outer[:, <span class="dv">1</span>], color<span class="op">=</span>c.accent2, lw<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    ax.plot(cycle[:, <span class="dv">0</span>], cycle[:, <span class="dv">1</span>], color<span class="op">=</span>c.accent, lw<span class="op">=</span><span class="fl">2.2</span>)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    ax.<span class="bu">set</span>(xlim<span class="op">=</span>(<span class="op">-</span><span class="fl">1.8</span>, <span class="fl">1.8</span>), ylim<span class="op">=</span>(<span class="op">-</span><span class="fl">1.8</span>, <span class="fl">1.8</span>), aspect<span class="op">=</span><span class="st">"equal"</span>, xlabel<span class="op">=</span><span class="vs">r"</span><span class="dv">$</span><span class="vs">x</span><span class="dv">$</span><span class="vs">"</span>, ylabel<span class="op">=</span><span class="vs">r"</span><span class="dv">$</span><span class="vs">y</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>themed(draw, figsize<span class="op">=</span>(<span class="fl">5.5</span>, <span class="fl">5.5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div id="fig-annulus" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-annulus-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div id="a0210826" class="cell" data-renderings="[&quot;light&quot;,&quot;dark&quot;]" data-execution_count="2">
+<div class="cell-output cell-output-display light-content">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-3-output-1.png" alt="Phase portrait of the example system. Two dashed circles bound a trapping annulus; trajectories from inside and outside converge to a closed orbit between them." width="539" height="520" class="figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display dark-content">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-3-output-2.png" alt="Phase portrait of the example system. Two dashed circles bound a trapping annulus; trajectories from inside and outside converge to a closed orbit between them." width="539" height="520" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-annulus-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: <a href="#eq-polar" class="quarto-xref">Equation&nbsp;1</a> with <span class="math inline">\(\mu = 0.5\)</span>. Dashed: the circles <span class="math inline">\(r = \sqrt{1 \mp \mu}\)</span> bounding the trapping annulus. Thick: the closed orbit.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="the-van-der-pol-oscillator" class="level2">
+<h2 class="anchored" data-anchor-id="the-van-der-pol-oscillator">The van der Pol oscillator</h2>
+<p>The same idea, with a more careful choice of region, proves that the van der Pol oscillator <span class="math display">\[
+\ddot x - \mu\,(1 - x^2)\,\dot x + x = 0, \qquad \mu &gt; 0,
+\]</span> has a periodic orbit. Liénard’s theorem goes further and shows the orbit is unique and attracts every trajectory except the equilibrium at the origin <span class="citation" data-cites="perko2001">(<a href="#ref-perko2001" role="doc-biblioref">Perko 2001, sec. 3.8</a>)</span>. <a href="#fig-vdp" class="quarto-xref">Figure&nbsp;2</a> shows how the cycle changes shape: nearly circular for small <span class="math inline">\(\mu\)</span>, and a <em>relaxation oscillation</em> with slow drifts and fast jumps for large <span class="math inline">\(\mu\)</span>.</p>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> vdp(mu):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    f <span class="op">=</span> <span class="kw">lambda</span> x: np.array([x[<span class="dv">1</span>], mu <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> x[<span class="dv">0</span>]<span class="op">**</span><span class="dv">2</span>) <span class="op">*</span> x[<span class="dv">1</span>] <span class="op">-</span> x[<span class="dv">0</span>]])</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    _, xs <span class="op">=</span> rk4(f, [<span class="fl">0.5</span>, <span class="fl">0.0</span>], <span class="dv">60</span>, h<span class="op">=</span><span class="fl">0.005</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> xs[<span class="bu">len</span>(xs) <span class="op">//</span> <span class="dv">2</span>:]</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>cycles <span class="op">=</span> {m: vdp(m) <span class="cf">for</span> m <span class="kw">in</span> (<span class="fl">0.3</span>, <span class="fl">1.0</span>, <span class="fl">3.0</span>)}</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> draw(fig, ax, c):</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (m, xs), col <span class="kw">in</span> <span class="bu">zip</span>(cycles.items(), (c.accent, c.accent2, c.fg)):</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        ax.plot(xs[:, <span class="dv">0</span>], xs[:, <span class="dv">1</span>], color<span class="op">=</span>col, lw<span class="op">=</span><span class="fl">1.4</span>, label<span class="op">=</span><span class="vs">fr"</span><span class="dv">$\m</span><span class="vs">u = </span><span class="sc">{</span>m<span class="sc">:g}</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="vs">r"</span><span class="dv">$</span><span class="vs">x</span><span class="dv">$</span><span class="vs">"</span>, ylabel<span class="op">=</span><span class="vs">r"</span><span class="dv">$\d</span><span class="vs">ot x</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    ax.legend(loc<span class="op">=</span><span class="st">"upper left"</span>)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>themed(draw, figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="fl">4.2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div id="fig-vdp" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-vdp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div id="d440bb4b" class="cell" data-renderings="[&quot;light&quot;,&quot;dark&quot;]" data-execution_count="3">
+<div class="cell-output cell-output-display light-content">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-4-output-1.png" alt="Limit cycles of the van der Pol oscillator for mu equal to 0.3, 1 and 3, becoming less circular as mu grows." width="683" height="414" class="figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display dark-content">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-4-output-2.png" alt="Limit cycles of the van der Pol oscillator for mu equal to 0.3, 1 and 3, becoming less circular as mu grows." width="683" height="414" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-vdp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Van der Pol limit cycles for three values of <span class="math inline">\(\mu\)</span>.
+</figcaption>
+</figure>
+</div>
+<div class="proof remark">
+<p><span class="proof-title"><em>Remark</em>. </span><a href="#thm-pb" class="quarto-xref">Theorem&nbsp;1</a> is also the reason chaos needs at least three dimensions: in the plane, a bounded trajectory away from equilibria can only settle onto a closed orbit. The <a href="../../posts/2026-09-12-lorenz-system/index.html">Lorenz system</a> escapes this by living in <span class="math inline">\(\R^3\)</span>.</p>
+</div>
+
+
+<!-- -->
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-perko2001" class="csl-entry" role="listitem">
+Perko, Lawrence. 2001. <em>Differential Equations and Dynamical Systems</em>. 3rd ed. Springer.
+</div>
+<div id="ref-strogatz2015" class="csl-entry" role="listitem">
+Strogatz, Steven H. 2015. <em>Nonlinear Dynamics and Chaos</em>. 2nd ed. Westview Press.
+</div>
+</div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{le2026,
+  author = {Le, Nam},
+  title = {The {Poincaré–Bendixson} Theorem},
+  date = {2026-08-15},
+  url = {https://dynamics.namln.org/posts/2026-08-15-poincare-bendixson/},
+  langid = {en}
+}
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-le2026" class="csl-entry quarto-appendix-citeas" role="listitem">
+Le, Nam. 2026. <span>“The Poincaré–Bendixson Theorem.”</span> August 15.
+<a href="https://dynamics.namln.org/posts/2026-08-15-poincare-bendixson/">https://dynamics.namln.org/posts/2026-08-15-poincare-bendixson/</a>.
+</div></div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const cellDetails = window.document.querySelectorAll(".cell details.code-fold");
+        for (let i=0; i<cellDetails.length; i++) {
+          const details = cellDetails[i];
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell div.sourceCode.cell-code");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/dynamics\.namln\.org");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "The Poincaré–Bendixson theorem"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> "In the plane, a trajectory trapped away from equilibria has nowhere to go but a closed orbit. A tool for proving limit cycles exist."</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2026-08-15</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> [planar-systems, limit-cycles]</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys<span class="op">;</span> sys.path.insert(<span class="dv">0</span>, <span class="st">".."</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> _blog <span class="im">import</span> themed, rk4</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>Equilibria are found by solving $f(x) = 0$. Periodic orbits are much harder to find, since they are global objects. In the plane there is a clean topological criterion for their existence.</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>::: {#thm-pb}</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## Poincaré–Bendixson</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>Let $f$ be $C^1$ on an open set containing a closed bounded region $R \subset \R^2$, and suppose $R$ contains no equilibria of $\dot x = f(x)$. If some trajectory starts in $R$ and stays in $R$ for all $t \geq 0$, then it is a closed orbit or it spirals toward a closed orbit as $t \to \infty$. In either case $R$ contains a closed orbit.</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>The proof rests on the Jordan curve theorem: a closed curve splits the plane into an inside and an outside, so a planar trajectory cannot weave around itself the way it can in three dimensions <span class="co">[</span><span class="ot">@perko2001, sec. 3.7</span><span class="co">]</span>. In practice the theorem is applied through trapping regions.</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>::: {#cor-trapping}</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="fu">## Trapping regions</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>Let $R$ be a closed annulus containing no equilibria. If the vector field points into $R$ everywhere on its boundary, then $R$ contains a closed orbit.</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>::: {.proof}</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>Any trajectory starting in $R$ can never leave it, so @thm-pb applies.</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="fu">## A worked example</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>::: {#exm-annulus}</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>Following @strogatz2015 <span class="co">[</span><span class="ot">sec. 7.3</span><span class="co">]</span>, consider in polar coordinates</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>\dot r = r\,(1 - r^2 + \mu\cos\theta), \qquad \dot\theta = 1,</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>$$ {#eq-polar}</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>with $0 &lt; \mu &lt; 1$. There are no equilibria except the origin, since $\dot\theta = 1$. On a circle $r = r_{\min}$ with $r_{\min}^2 &lt; 1 - \mu$,</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>1 - r_{\min}^2 + \mu\cos\theta \geq 1 - r_{\min}^2 - \mu &gt; 0,</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>so $\dot r &gt; 0$ and the flow points outward. On a circle $r = r_{\max}$ with $r_{\max}^2 &gt; 1 + \mu$, the same bound in the other direction gives $\dot r &lt; 0$. The annulus $r_{\min} \leq r \leq r_{\max}$ is therefore a trapping region, and by @cor-trapping it contains a closed orbit.</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>@fig-annulus shows the result for $\mu = 0.5$: trajectories from inside and outside are drawn to a single closed orbit lying between the circles $r = \sqrt{1 - \mu}$ and $r = \sqrt{1 + \mu}$.</span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>::: {#fig-annulus}</span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a><span class="co">#| renderings: [light, dark]</span></span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-alt: "Phase portrait of the example system. Two dashed circles bound a trapping annulus; trajectories from inside and outside converge to a closed orbit between them."</span></span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>mu <span class="op">=</span> <span class="fl">0.5</span></span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> field(x):</span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>    r <span class="op">=</span> np.hypot(x[<span class="dv">0</span>], x[<span class="dv">1</span>])</span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>    g <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> r<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> (mu <span class="op">*</span> x[<span class="dv">0</span>] <span class="op">/</span> r <span class="cf">if</span> r <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="fl">0.0</span>)</span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.array([x[<span class="dv">0</span>] <span class="op">*</span> g <span class="op">-</span> x[<span class="dv">1</span>], x[<span class="dv">1</span>] <span class="op">*</span> g <span class="op">+</span> x[<span class="dv">0</span>]])</span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> np.linspace(<span class="op">-</span><span class="fl">1.8</span>, <span class="fl">1.8</span>, <span class="dv">40</span>)</span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>X, Y <span class="op">=</span> np.meshgrid(g, g)</span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a>R <span class="op">=</span> np.hypot(X, Y)</span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> R<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> mu <span class="op">*</span> np.divide(X, R, out<span class="op">=</span>np.zeros_like(X), where<span class="op">=</span>R <span class="op">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a>U, W <span class="op">=</span> X <span class="op">*</span> G <span class="op">-</span> Y, Y <span class="op">*</span> G <span class="op">+</span> X</span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>_, inner <span class="op">=</span> rk4(field, [<span class="fl">0.15</span>, <span class="fl">0.0</span>], <span class="dv">12</span>, h<span class="op">=</span><span class="fl">0.01</span>)</span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a>_, outer <span class="op">=</span> rk4(field, [<span class="fl">1.75</span>, <span class="fl">0.0</span>], <span class="dv">12</span>, h<span class="op">=</span><span class="fl">0.01</span>)</span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a>_, cycle <span class="op">=</span> rk4(field, inner[<span class="op">-</span><span class="dv">1</span>], <span class="dv">2</span> <span class="op">*</span> np.pi, h<span class="op">=</span><span class="fl">0.01</span>)</span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a>phi <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">2</span> <span class="op">*</span> np.pi, <span class="dv">200</span>)</span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> draw(fig, ax, c):</span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a>    ax.streamplot(X, Y, U, W, color<span class="op">=</span>c.muted, density<span class="op">=</span><span class="fl">0.8</span>, linewidth<span class="op">=</span><span class="fl">0.5</span>, arrowsize<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> rad <span class="kw">in</span> (np.sqrt(<span class="dv">1</span> <span class="op">-</span> mu), np.sqrt(<span class="dv">1</span> <span class="op">+</span> mu)):</span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a>        ax.plot(rad <span class="op">*</span> np.cos(phi), rad <span class="op">*</span> np.sin(phi), <span class="st">"--"</span>, color<span class="op">=</span>c.fg, lw<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a>    ax.plot(inner[:, <span class="dv">0</span>], inner[:, <span class="dv">1</span>], color<span class="op">=</span>c.accent2, lw<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a>    ax.plot(outer[:, <span class="dv">0</span>], outer[:, <span class="dv">1</span>], color<span class="op">=</span>c.accent2, lw<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a>    ax.plot(cycle[:, <span class="dv">0</span>], cycle[:, <span class="dv">1</span>], color<span class="op">=</span>c.accent, lw<span class="op">=</span><span class="fl">2.2</span>)</span>
+<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a>    ax.<span class="bu">set</span>(xlim<span class="op">=</span>(<span class="op">-</span><span class="fl">1.8</span>, <span class="fl">1.8</span>), ylim<span class="op">=</span>(<span class="op">-</span><span class="fl">1.8</span>, <span class="fl">1.8</span>), aspect<span class="op">=</span><span class="st">"equal"</span>, xlabel<span class="op">=</span><span class="vs">r"</span><span class="dv">$</span><span class="vs">x</span><span class="dv">$</span><span class="vs">"</span>, ylabel<span class="op">=</span><span class="vs">r"</span><span class="dv">$</span><span class="vs">y</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a>themed(draw, figsize<span class="op">=</span>(<span class="fl">5.5</span>, <span class="fl">5.5</span>))</span>
+<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a>@eq-polar with $\mu = 0.5$. Dashed: the circles $r = \sqrt{1 \mp \mu}$ bounding the trapping annulus. Thick: the closed orbit.</span>
+<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a><span class="fu">## The van der Pol oscillator</span></span>
+<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a>The same idea, with a more careful choice of region, proves that the van der Pol oscillator</span>
+<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a>\ddot x - \mu\,(1 - x^2)\,\dot x + x = 0, \qquad \mu &gt; 0,</span>
+<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a>has a periodic orbit. Liénard's theorem goes further and shows the orbit is unique and attracts every trajectory except the equilibrium at the origin <span class="co">[</span><span class="ot">@perko2001, sec. 3.8</span><span class="co">]</span>. @fig-vdp shows how the cycle changes shape: nearly circular for small $\mu$, and a *relaxation oscillation* with slow drifts and fast jumps for large $\mu$.</span>
+<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a>::: {#fig-vdp}</span>
+<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a><span class="co">#| renderings: [light, dark]</span></span>
+<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-alt: "Limit cycles of the van der Pol oscillator for mu equal to 0.3, 1 and 3, becoming less circular as mu grows."</span></span>
+<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> vdp(mu):</span>
+<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a>    f <span class="op">=</span> <span class="kw">lambda</span> x: np.array([x[<span class="dv">1</span>], mu <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> x[<span class="dv">0</span>]<span class="op">**</span><span class="dv">2</span>) <span class="op">*</span> x[<span class="dv">1</span>] <span class="op">-</span> x[<span class="dv">0</span>]])</span>
+<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a>    _, xs <span class="op">=</span> rk4(f, [<span class="fl">0.5</span>, <span class="fl">0.0</span>], <span class="dv">60</span>, h<span class="op">=</span><span class="fl">0.005</span>)</span>
+<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> xs[<span class="bu">len</span>(xs) <span class="op">//</span> <span class="dv">2</span>:]</span>
+<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a>cycles <span class="op">=</span> {m: vdp(m) <span class="cf">for</span> m <span class="kw">in</span> (<span class="fl">0.3</span>, <span class="fl">1.0</span>, <span class="fl">3.0</span>)}</span>
+<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> draw(fig, ax, c):</span>
+<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (m, xs), col <span class="kw">in</span> <span class="bu">zip</span>(cycles.items(), (c.accent, c.accent2, c.fg)):</span>
+<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a>        ax.plot(xs[:, <span class="dv">0</span>], xs[:, <span class="dv">1</span>], color<span class="op">=</span>col, lw<span class="op">=</span><span class="fl">1.4</span>, label<span class="op">=</span><span class="vs">fr"</span><span class="dv">$\m</span><span class="vs">u = </span><span class="sc">{</span>m<span class="sc">:g}</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a>    ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="vs">r"</span><span class="dv">$</span><span class="vs">x</span><span class="dv">$</span><span class="vs">"</span>, ylabel<span class="op">=</span><span class="vs">r"</span><span class="dv">$\d</span><span class="vs">ot x</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a>    ax.legend(loc<span class="op">=</span><span class="st">"upper left"</span>)</span>
+<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a>themed(draw, figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="fl">4.2</span>))</span>
+<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a>Van der Pol limit cycles for three values of $\mu$.</span>
+<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-122"><a href="#cb3-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-123"><a href="#cb3-123" aria-hidden="true" tabindex="-1"></a>::: {.remark}</span>
+<span id="cb3-124"><a href="#cb3-124" aria-hidden="true" tabindex="-1"></a>@thm-pb is also the reason chaos needs at least three dimensions: in the plane, a bounded trajectory away from equilibria can only settle onto a closed orbit. The <span class="co">[</span><span class="ot">Lorenz system</span><span class="co">](../2026-09-12-lorenz-system/index.qmd)</span> escapes this by living in $\R^3$.</span>
+<span id="cb3-125"><a href="#cb3-125" aria-hidden="true" tabindex="-1"></a>:::</span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026 Nam Le · Content licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Built with <a href="https://quarto.org">Quarto</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

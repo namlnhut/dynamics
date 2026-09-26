@@ -1,0 +1,131 @@
+/* Use the operating system's own UI and monospace fonts. */
+:root {
+  --font-system: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans",
+    Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji";
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+    "Liberation Mono", "DejaVu Sans Mono", monospace;
+  --bs-body-font-family: var(--font-system);
+  --bs-font-monospace: var(--font-mono);
+}
+
+body {
+  font-family: var(--font-system);
+  font-size: 1.05rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5, h6,
+.navbar, .title, .listing-title {
+  font-family: var(--font-system);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+h2 { margin-top: 2rem; }
+h3 { margin-top: 1.5rem; }
+
+code, pre, kbd, samp, .sourceCode {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+/* Keep display math from overflowing on narrow screens. */
+mjx-container[display="true"] {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+/* ---------- Theorem-like blocks ----------
+   Quarto renders them as <div class="theorem [kind]"> and <div class="proof [remark|solution]">.
+   Colours switch with Quarto's light/dark toggle (body.quarto-light / body.quarto-dark).
+   Accents only colour the border and title; body text keeps the page colour for contrast. */
+
+body.quarto-light {
+  --thm-accent: #2c5f9e; --thm-bg: #f1f6fc;   /* theorem, lemma, proposition, corollary */
+  --def-accent: #1f7a5a; --def-bg: #eef8f3;   /* definition */
+  --ex-accent:  #9a5b00; --ex-bg:  #fdf6ea;   /* example, exercise */
+  --conj-accent:#7b3fa0; --conj-bg:#f7f1fb;   /* conjecture, algorithm */
+  --rem-accent: #5c636a;                       /* proof, remark, solution */
+}
+
+body.quarto-dark {
+  --thm-accent: #8ab8f0; --thm-bg: #253040;
+  --def-accent: #72d1a8; --def-bg: #20332b;
+  --ex-accent:  #eab765; --ex-bg:  #362f20;
+  --conj-accent:#c9a0ea; --conj-bg:#30283a;
+  --rem-accent: #adb5bd;
+}
+
+.theorem {
+  --accent: var(--thm-accent);
+  --tint: var(--thm-bg);
+  margin: 1.5em 0;
+  padding: 0.8em 1.1em;
+  border-left: 4px solid var(--accent);
+  border-radius: 0 0.375rem 0.375rem 0;
+  background: var(--tint);
+}
+
+.theorem.definition { --accent: var(--def-accent); --tint: var(--def-bg); }
+.theorem.example,
+.theorem.exercise   { --accent: var(--ex-accent);  --tint: var(--ex-bg); }
+.theorem.conjecture,
+.theorem.algorithm  { --accent: var(--conj-accent); --tint: var(--conj-bg); }
+
+.theorem-title,
+.theorem-title strong {
+  color: var(--accent);
+  font-weight: 650;
+}
+
+.theorem > :last-child { margin-bottom: 0; }
+.theorem mjx-container[display="true"] { margin: 0.8em 0; }
+
+/* Proofs, remarks and solutions: no box, a quiet rule and an end-of-proof mark. */
+.proof {
+  margin: 1.2em 0 1.5em;
+  padding-left: 1.1em;
+  border-left: 2px solid color-mix(in srgb, var(--rem-accent) 40%, transparent);
+}
+
+.proof-title,
+.proof-title em {
+  color: var(--rem-accent);
+  font-style: italic;
+  font-weight: 600;
+}
+
+.proof > :last-child { margin-bottom: 0; }
+
+.proof:not(.remark):not(.solution) > :last-child::after {
+  content: "∎";
+  float: right;
+  margin-left: 1em;
+  color: var(--rem-accent);
+}
+
+/* Cross-reference target highlight when jumping to a theorem via a link. */
+.theorem:target { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+@media print {
+  .theorem { background: none; }
+}
+
+figure img { max-width: 100%; height: auto; }
+
+/* Observable Plot phase portraits: lines use the theme accent, axes the text colour. */
+.phase-plot { background: transparent; }
+.phase-plot [aria-label="line"],
+.phase-plot [aria-label="dot"] { color: var(--thm-accent); }
+
+/* Post numbers in the listing (added by _includes/listing.html). */
+.post-number {
+  margin-right: 0.5em;
+  color: var(--bs-secondary-color);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}

@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Nam Le">
+<meta name="dcterms.date" content="2026-09-12">
+<meta name="description" content="Three equations from a convection model that gave chaos its butterfly: symmetry, dissipation, equilibria and sensitive dependence.">
+
+<title>The Lorenz system – Dynamical Systems</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../assets/favicon.svg" rel="icon" type="image/svg+xml">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-cea4f62ce7817bf36d57384de3b7c12a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-b8c0f232dbf7569709fc0bd064a8fd0b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-cea4f62ce7817bf36d57384de3b7c12a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<!-- Site-wide LaTeX macros. Loaded before MathJax via include-in-header. -->
+<script>
+window.MathJax = {
+  tex: {
+    macros: {
+      R: "\\mathbb{R}",
+      N: "\\mathbb{N}",
+      dd: "\\mathrm{d}",
+      Fix: "\\operatorname{Fix}",
+      flow: "\\varphi",
+      tr: "\\operatorname{tr}"
+    }
+  }
+};
+</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../assets/css/styles.css">
+<meta property="og:title" content="The Lorenz system – Dynamical Systems">
+<meta property="og:description" content="Three equations from a convection model that gave chaos its butterfly: symmetry, dissipation, equilibria and sensitive dependence.">
+<meta property="og:image" content="https://dynamics.namln.org/posts/2026-09-12-lorenz-system/index_files/figure-html/cell-3-output-1.png">
+<meta property="og:site_name" content="Dynamical Systems">
+<meta property="og:image:alt" content="Projection of a long Lorenz trajectory onto the x-z plane, forming two lobes around the equilibria C plus and C minus, like butterfly wings.">
+<meta property="og:image:height" content="982">
+<meta property="og:image:width" content="1366">
+<meta name="twitter:title" content="The Lorenz system – Dynamical Systems">
+<meta name="twitter:description" content="Three equations from a convection model that gave chaos its butterfly: symmetry, dissipation, equilibria and sensitive dependence.">
+<meta name="twitter:image" content="https://dynamics.namln.org/posts/2026-09-12-lorenz-system/index_files/figure-html/cell-3-output-1.png">
+<meta name="twitter:image:alt" content="Projection of a long Lorenz trajectory onto the x-z plane, forming two lobes around the equilibria C plus and C minus, like butterfly wings.">
+<meta name="twitter:image-height" content="982">
+<meta name="twitter:image-width" content="1366">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="citation_title" content="The Lorenz system">
+<meta name="citation_author" content="Nam Le">
+<meta name="citation_publication_date" content="2026-09-12">
+<meta name="citation_cover_date" content="2026-09-12">
+<meta name="citation_year" content="2026">
+<meta name="citation_online_date" content="2026-09-12">
+<meta name="citation_fulltext_html_url" content="https://dynamics.namln.org/posts/2026-09-12-lorenz-system/">
+<meta name="citation_language" content="en">
+<meta name="citation_reference" content="citation_title=Nonlinear dynamics and chaos;,citation_author=Steven H. Strogatz;,citation_publication_date=2015;,citation_cover_date=2015;,citation_year=2015;">
+<meta name="citation_reference" content="citation_title=Differential equations, dynamical systems, and an introduction to chaos;,citation_author=Morris W. Hirsch;,citation_author=Stephen Smale;,citation_author=Robert L. Devaney;,citation_publication_date=2013;,citation_cover_date=2013;,citation_year=2013;">
+<meta name="citation_reference" content="citation_title=Nonlinear oscillations, dynamical systems, and bifurcations of vector fields;,citation_author=John Guckenheimer;,citation_author=Philip Holmes;,citation_publication_date=1983;,citation_cover_date=1983;,citation_year=1983;,citation_volume=42;,citation_series_title=Applied mathematical sciences;">
+<meta name="citation_reference" content="citation_title=Nonlinear systems;,citation_author=Hassan K. Khalil;,citation_publication_date=2002;,citation_cover_date=2002;,citation_year=2002;">
+<meta name="citation_reference" content="citation_title=Differential equations and dynamical systems;,citation_author=Lawrence Perko;,citation_publication_date=2001;,citation_cover_date=2001;,citation_year=2001;">
+<meta name="citation_reference" content="citation_title=Some extensions of Liapunov’s second method;,citation_author=J. P. LaSalle;,citation_publication_date=1960;,citation_cover_date=1960;,citation_year=1960;,citation_issue=4;,citation_volume=7;,citation_journal_title=IRE Transactions on Circuit Theory;">
+<meta name="citation_reference" content="citation_title=Deterministic nonperiodic flow;,citation_author=Edward N. Lorenz;,citation_publication_date=1963;,citation_cover_date=1963;,citation_year=1963;,citation_issue=2;,citation_volume=20;,citation_journal_title=Journal of the Atmospheric Sciences;">
+<meta name="citation_reference" content="citation_title=Simple mathematical models with very complicated dynamics;,citation_author=Robert M. May;,citation_publication_date=1976;,citation_cover_date=1976;,citation_year=1976;,citation_doi=10.1038/261459a0;,citation_volume=261;,citation_journal_title=Nature;">
+<meta name="citation_reference" content="citation_title=Quantitative universality for a class of nonlinear transformations;,citation_author=Mitchell J. Feigenbaum;,citation_publication_date=1978;,citation_cover_date=1978;,citation_year=1978;,citation_issue=1;,citation_doi=10.1007/BF01020332;,citation_volume=19;,citation_journal_title=Journal of Statistical Physics;">
+<meta name="citation_reference" content="citation_title=A rigorous ODE solver and Smale’s 14th problem;,citation_author=Warwick Tucker;,citation_publication_date=2002;,citation_cover_date=2002;,citation_year=2002;,citation_issue=1;,citation_volume=2;,citation_journal_title=Foundations of Computational Mathematics;">
+</head>
+
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Dynamical Systems</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Posts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="../../index.xml"> <i class="bi bi-rss" role="img" aria-label="RSS feed">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#basic-structure" id="toc-basic-structure" class="nav-link active" data-scroll-target="#basic-structure">Basic structure</a></li>
+  <li><a href="#the-attractor" id="toc-the-attractor" class="nav-link" data-scroll-target="#the-attractor">The attractor</a></li>
+  <li><a href="#sensitive-dependence" id="toc-sensitive-dependence" class="nav-link" data-scroll-target="#sensitive-dependence">Sensitive dependence</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">The Lorenz system</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+  <div class="quarto-categories">
+    <div class="quarto-category">chaos</div>
+    <div class="quarto-category">flows</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Three equations from a convection model that gave chaos its butterfly: symmetry, dissipation, equilibria and sensitive dependence.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Nam Le </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">12 September 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>The <a href="../../posts/2026-08-15-poincare-bendixson/index.html">Poincaré–Bendixson theorem</a> rules out chaos for planar flows. <span class="citation" data-cites="lorenz1963">Lorenz (<a href="#ref-lorenz1963" role="doc-biblioref">1963</a>)</span> found it in three dimensions, in a drastically truncated model of convection: <span id="eq-lorenz"><span class="math display">\[
+\dot x = \sigma (y - x), \qquad \dot y = x(\rho - z) - y, \qquad \dot z = xy - \beta z.
+\tag{1}\]</span></span> Lorenz’s parameters, used throughout, are <span class="math inline">\(\sigma = 10\)</span>, <span class="math inline">\(\beta = 8/3\)</span> and <span class="math inline">\(\rho = 28\)</span>.</p>
+<section id="basic-structure" class="level2">
+<h2 class="anchored" data-anchor-id="basic-structure">Basic structure</h2>
+<p>Three properties can be read off <a href="#eq-lorenz" class="quarto-xref">Equation&nbsp;1</a> directly.</p>
+<ul>
+<li><strong>Symmetry.</strong> The equations are unchanged by <span class="math inline">\((x, y, z) \mapsto (-x, -y, z)\)</span>, so every trajectory has a mirror twin.</li>
+<li><strong>Dissipation.</strong> The divergence of the vector field is <span class="math inline">\(-(\sigma + 1 + \beta) &lt; 0\)</span>, a constant. By Liouville’s theorem, volumes in phase space shrink like <span class="math inline">\(e^{-(\sigma + 1 + \beta)t}\)</span>, so the attractor has zero volume.</li>
+<li><strong>Equilibria.</strong> The origin is always an equilibrium. For <span class="math inline">\(\rho &gt; 1\)</span> there are two more, <span class="math display">\[
+C_\pm = \left(\pm\sqrt{\beta(\rho - 1)},\ \pm\sqrt{\beta(\rho - 1)},\ \rho - 1\right).
+\]</span></li>
+</ul>
+<div id="prp-global" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 1</strong></span> For <span class="math inline">\(\rho &lt; 1\)</span> every trajectory of <a href="#eq-lorenz" class="quarto-xref">Equation&nbsp;1</a> tends to the origin.</p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Take <span class="math inline">\(V = x^2/\sigma + y^2 + z^2\)</span>. A direct computation gives <span class="math display">\[
+\tfrac12 \dot V = -\left(x - \tfrac{\rho + 1}{2}\,y\right)^2 - \left(1 - \left(\tfrac{\rho + 1}{2}\right)^2\right) y^2 - \beta z^2.
+\]</span> For <span class="math inline">\(\rho &lt; 1\)</span> we have <span class="math inline">\((\rho + 1)/2 &lt; 1\)</span>, so <span class="math inline">\(\dot V &lt; 0\)</span> away from the origin. Since <span class="math inline">\(V\)</span> is radially unbounded, the origin is globally asymptotically stable by the <a href="../../posts/2026-08-08-lyapunov-functions/index.html">Lyapunov and LaSalle theorems</a>.</p>
+</div>
+<p>As <span class="math inline">\(\rho\)</span> increases, <span class="math inline">\(C_\pm\)</span> appear at <span class="math inline">\(\rho = 1\)</span> and are stable until a subcritical <a href="../../posts/2026-08-22-hopf-bifurcation/index.html">Hopf bifurcation</a> at <span class="math display">\[
+\rho_H = \frac{\sigma(\sigma + \beta + 3)}{\sigma - \beta - 1} \approx 24.74.
+\]</span> At <span class="math inline">\(\rho = 28\)</span> all three equilibria are unstable. Yet trajectories stay bounded, since every one eventually enters a fixed large ellipsoid <span class="citation" data-cites="strogatz2015">(<a href="#ref-strogatz2015" role="doc-biblioref">Strogatz 2015, sec. 9.2</a>)</span>. Combined with the dissipation above, they wander forever on a bounded set of zero volume without settling down.</p>
+</section>
+<section id="the-attractor" class="level2">
+<h2 class="anchored" data-anchor-id="the-attractor">The attractor</h2>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>sigma, beta, rho <span class="op">=</span> <span class="fl">10.0</span>, <span class="dv">8</span> <span class="op">/</span> <span class="dv">3</span>, <span class="fl">28.0</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>lorenz <span class="op">=</span> <span class="kw">lambda</span> u: np.array([sigma <span class="op">*</span> (u[<span class="dv">1</span>] <span class="op">-</span> u[<span class="dv">0</span>]), u[<span class="dv">0</span>] <span class="op">*</span> (rho <span class="op">-</span> u[<span class="dv">2</span>]) <span class="op">-</span> u[<span class="dv">1</span>], u[<span class="dv">0</span>] <span class="op">*</span> u[<span class="dv">1</span>] <span class="op">-</span> beta <span class="op">*</span> u[<span class="dv">2</span>]])</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>t, u <span class="op">=</span> rk4(lorenz, [<span class="fl">1.0</span>, <span class="fl">1.0</span>, <span class="fl">1.0</span>], <span class="dv">60</span>, h<span class="op">=</span><span class="fl">0.005</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>u <span class="op">=</span> u[t <span class="op">&gt;</span> <span class="dv">5</span>]</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>c_eq <span class="op">=</span> np.sqrt(beta <span class="op">*</span> (rho <span class="op">-</span> <span class="dv">1</span>))</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> draw(fig, ax, c):</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    ax.plot(u[:, <span class="dv">0</span>], u[:, <span class="dv">2</span>], color<span class="op">=</span>c.accent, lw<span class="op">=</span><span class="fl">0.35</span>, alpha<span class="op">=</span><span class="fl">0.9</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    ax.plot([c_eq, <span class="op">-</span>c_eq], [rho <span class="op">-</span> <span class="dv">1</span>, rho <span class="op">-</span> <span class="dv">1</span>], <span class="st">"o"</span>, color<span class="op">=</span>c.accent2, ms<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="vs">r"</span><span class="dv">$</span><span class="vs">x</span><span class="dv">$</span><span class="vs">"</span>, ylabel<span class="op">=</span><span class="vs">r"</span><span class="dv">$</span><span class="vs">z</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>themed(draw, figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="dv">5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div id="fig-attractor" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-attractor-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div id="b749332b" class="cell" data-renderings="[&quot;light&quot;,&quot;dark&quot;]" data-execution_count="2">
+<div class="cell-output cell-output-display light-content">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-3-output-1.png" alt="Projection of a long Lorenz trajectory onto the x-z plane, forming two lobes around the equilibria C plus and C minus, like butterfly wings." width="683" height="491" class="figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display dark-content">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-3-output-2.png" alt="Projection of a long Lorenz trajectory onto the x-z plane, forming two lobes around the equilibria C plus and C minus, like butterfly wings." width="683" height="491" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-attractor-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: A trajectory on the Lorenz attractor, projected onto the <span class="math inline">\((x, z)\)</span> plane. The two dots are <span class="math inline">\(C_\pm\)</span>.
+</figcaption>
+</figure>
+</div>
+<p>The trajectory circles one equilibrium, then the other, switching in a sequence that looks random. Whether this picture really contains a <em>strange attractor</em>, rather than being a numerical artifact, stayed open until <span class="citation" data-cites="tucker2002">Tucker (<a href="#ref-tucker2002" role="doc-biblioref">2002</a>)</span> settled it with a computer-assisted proof.</p>
+</section>
+<section id="sensitive-dependence" class="level2">
+<h2 class="anchored" data-anchor-id="sensitive-dependence">Sensitive dependence</h2>
+<p><a href="#fig-separation" class="quarto-xref">Figure&nbsp;2</a> follows two trajectories that start <span class="math inline">\(10^{-8}\)</span> apart on the attractor. Their distance grows roughly like <span class="math inline">\(e^{\lambda_1 t}\)</span>, where <span class="math inline">\(\lambda_1 \approx 0.906\)</span> is the largest Lyapunov exponent of the attractor, until it reaches the size of the attractor itself. After that the two trajectories are unrelated. This is why weather forecasts have a horizon, however good the model.</p>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>start <span class="op">=</span> u[<span class="op">-</span><span class="dv">1</span>]  <span class="co"># a point already on the attractor, from the previous figure</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>t, a <span class="op">=</span> rk4(lorenz, start, <span class="dv">45</span>, h<span class="op">=</span><span class="fl">0.005</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>_, b <span class="op">=</span> rk4(lorenz, start <span class="op">+</span> [<span class="fl">1e-8</span>, <span class="dv">0</span>, <span class="dv">0</span>], <span class="dv">45</span>, h<span class="op">=</span><span class="fl">0.005</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>dist <span class="op">=</span> np.linalg.norm(a <span class="op">-</span> b, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> draw(fig, ax, c):</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    ax.semilogy(t, dist, color<span class="op">=</span>c.accent, lw<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    ax.semilogy(t, <span class="fl">1e-8</span> <span class="op">*</span> np.exp(<span class="fl">0.906</span> <span class="op">*</span> t), <span class="st">"--"</span>, color<span class="op">=</span>c.accent2, lw<span class="op">=</span><span class="dv">1</span>, label<span class="op">=</span><span class="vs">r"</span><span class="dv">$</span><span class="vs">10</span><span class="dv">^</span><span class="vs">{-8} e</span><span class="dv">^</span><span class="vs">{0</span><span class="dv">.</span><span class="vs">906</span><span class="ch">\,</span><span class="vs">t}</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="vs">r"</span><span class="dv">$</span><span class="vs">t</span><span class="dv">$</span><span class="vs">"</span>, ylabel<span class="op">=</span><span class="st">"distance"</span>, ylim<span class="op">=</span>(<span class="fl">1e-9</span>, <span class="fl">1e3</span>))</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    ax.legend(loc<span class="op">=</span><span class="st">"lower right"</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>themed(draw, figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="fl">3.6</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div id="fig-separation" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-separation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div id="d0c62924" class="cell" data-renderings="[&quot;light&quot;,&quot;dark&quot;]" data-execution_count="3">
+<div class="cell-output cell-output-display light-content">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-4-output-1.png" alt="Distance between two Lorenz trajectories starting 1e-8 apart, on a log scale. It grows along a straight line of slope about 0.9 for roughly 20 time units, then saturates at the size of the attractor." width="683" height="357" class="figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display dark-content">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-4-output-2.png" alt="Distance between two Lorenz trajectories starting 1e-8 apart, on a log scale. It grows along a straight line of slope about 0.9 for roughly 20 time units, then saturates at the size of the attractor." width="683" height="357" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-separation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Distance between two trajectories started <span class="math inline">\(10^{-8}\)</span> apart.
+</figcaption>
+</figure>
+</div>
+<p>For more on the Lorenz equations, see <span class="citation" data-cites="strogatz2015">Strogatz (<a href="#ref-strogatz2015" role="doc-biblioref">2015</a>, ch.&nbsp;9)</span> and <span class="citation" data-cites="hirsch2013">Hirsch et al. (<a href="#ref-hirsch2013" role="doc-biblioref">2013</a>, ch.&nbsp;14)</span>.</p>
+
+
+<!-- -->
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-hirsch2013" class="csl-entry" role="listitem">
+Hirsch, Morris W., Stephen Smale, and Robert L. Devaney. 2013. <em>Differential Equations, Dynamical Systems, and an Introduction to Chaos</em>. 3rd ed. Academic Press.
+</div>
+<div id="ref-lorenz1963" class="csl-entry" role="listitem">
+Lorenz, Edward N. 1963. <span>“Deterministic Nonperiodic Flow.”</span> <em>Journal of the Atmospheric Sciences</em> 20 (2): 130–41.
+</div>
+<div id="ref-strogatz2015" class="csl-entry" role="listitem">
+Strogatz, Steven H. 2015. <em>Nonlinear Dynamics and Chaos</em>. 2nd ed. Westview Press.
+</div>
+<div id="ref-tucker2002" class="csl-entry" role="listitem">
+Tucker, Warwick. 2002. <span>“A Rigorous <span>ODE</span> Solver and <span class="nocase">Smale’s</span> 14th Problem.”</span> <em>Foundations of Computational Mathematics</em> 2 (1): 53–117.
+</div>
+</div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{le2026,
+  author = {Le, Nam},
+  title = {The {Lorenz} System},
+  date = {2026-09-12},
+  url = {https://dynamics.namln.org/posts/2026-09-12-lorenz-system/},
+  langid = {en}
+}
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-le2026" class="csl-entry quarto-appendix-citeas" role="listitem">
+Le, Nam. 2026. <span>“The Lorenz System.”</span> September 12. <a href="https://dynamics.namln.org/posts/2026-09-12-lorenz-system/">https://dynamics.namln.org/posts/2026-09-12-lorenz-system/</a>.
+</div></div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const cellDetails = window.document.querySelectorAll(".cell details.code-fold");
+        for (let i=0; i<cellDetails.length; i++) {
+          const details = cellDetails[i];
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell div.sourceCode.cell-code");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/dynamics\.namln\.org");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "The Lorenz system"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> "Three equations from a convection model that gave chaos its butterfly: symmetry, dissipation, equilibria and sensitive dependence."</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2026-09-12</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> [chaos, flows]</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys<span class="op">;</span> sys.path.insert(<span class="dv">0</span>, <span class="st">".."</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> _blog <span class="im">import</span> themed, rk4</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>The <span class="co">[</span><span class="ot">Poincaré–Bendixson theorem</span><span class="co">](../2026-08-15-poincare-bendixson/index.qmd)</span> rules out chaos for planar flows. @lorenz1963 found it in three dimensions, in a drastically truncated model of convection:</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>\dot x = \sigma (y - x), \qquad \dot y = x(\rho - z) - y, \qquad \dot z = xy - \beta z.</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>$$ {#eq-lorenz}</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>Lorenz's parameters, used throughout, are $\sigma = 10$, $\beta = 8/3$ and $\rho = 28$.</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="fu">## Basic structure</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>Three properties can be read off @eq-lorenz directly.</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Symmetry.** The equations are unchanged by $(x, y, z) \mapsto (-x, -y, z)$, so every trajectory has a mirror twin.</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Dissipation.** The divergence of the vector field is $-(\sigma + 1 + \beta) &lt; 0$, a constant. By Liouville's theorem, volumes in phase space shrink like $e^{-(\sigma + 1 + \beta)t}$, so the attractor has zero volume.</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Equilibria.** The origin is always an equilibrium. For $\rho &gt; 1$ there are two more,</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>C_\pm = \left(\pm\sqrt{\beta(\rho - 1)},\ \pm\sqrt{\beta(\rho - 1)},\ \rho - 1\right).</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>::: {#prp-global}</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>For $\rho &lt; 1$ every trajectory of @eq-lorenz tends to the origin.</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>::: {.proof}</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>Take $V = x^2/\sigma + y^2 + z^2$. A direct computation gives</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>\tfrac12 \dot V = -\left(x - \tfrac{\rho + 1}{2}\,y\right)^2 - \left(1 - \left(\tfrac{\rho + 1}{2}\right)^2\right) y^2 - \beta z^2.</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>For $\rho &lt; 1$ we have $(\rho + 1)/2 &lt; 1$, so $\dot V &lt; 0$ away from the origin. Since $V$ is radially unbounded, the origin is globally asymptotically stable by the <span class="co">[</span><span class="ot">Lyapunov and LaSalle theorems</span><span class="co">](../2026-08-08-lyapunov-functions/index.qmd)</span>.</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>As $\rho$ increases, $C_\pm$ appear at $\rho = 1$ and are stable until a subcritical <span class="co">[</span><span class="ot">Hopf bifurcation</span><span class="co">](../2026-08-22-hopf-bifurcation/index.qmd)</span> at</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>\rho_H = \frac{\sigma(\sigma + \beta + 3)}{\sigma - \beta - 1} \approx 24.74.</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>At $\rho = 28$ all three equilibria are unstable. Yet trajectories stay bounded, since every one eventually enters a fixed large ellipsoid <span class="co">[</span><span class="ot">@strogatz2015, sec. 9.2</span><span class="co">]</span>. Combined with the dissipation above, they wander forever on a bounded set of zero volume without settling down.</span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a><span class="fu">## The attractor</span></span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>::: {#fig-attractor}</span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a><span class="co">#| renderings: [light, dark]</span></span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-alt: "Projection of a long Lorenz trajectory onto the x-z plane, forming two lobes around the equilibria C plus and C minus, like butterfly wings."</span></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>sigma, beta, rho <span class="op">=</span> <span class="fl">10.0</span>, <span class="dv">8</span> <span class="op">/</span> <span class="dv">3</span>, <span class="fl">28.0</span></span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>lorenz <span class="op">=</span> <span class="kw">lambda</span> u: np.array([sigma <span class="op">*</span> (u[<span class="dv">1</span>] <span class="op">-</span> u[<span class="dv">0</span>]), u[<span class="dv">0</span>] <span class="op">*</span> (rho <span class="op">-</span> u[<span class="dv">2</span>]) <span class="op">-</span> u[<span class="dv">1</span>], u[<span class="dv">0</span>] <span class="op">*</span> u[<span class="dv">1</span>] <span class="op">-</span> beta <span class="op">*</span> u[<span class="dv">2</span>]])</span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>t, u <span class="op">=</span> rk4(lorenz, [<span class="fl">1.0</span>, <span class="fl">1.0</span>, <span class="fl">1.0</span>], <span class="dv">60</span>, h<span class="op">=</span><span class="fl">0.005</span>)</span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>u <span class="op">=</span> u[t <span class="op">&gt;</span> <span class="dv">5</span>]</span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>c_eq <span class="op">=</span> np.sqrt(beta <span class="op">*</span> (rho <span class="op">-</span> <span class="dv">1</span>))</span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> draw(fig, ax, c):</span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a>    ax.plot(u[:, <span class="dv">0</span>], u[:, <span class="dv">2</span>], color<span class="op">=</span>c.accent, lw<span class="op">=</span><span class="fl">0.35</span>, alpha<span class="op">=</span><span class="fl">0.9</span>)</span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a>    ax.plot([c_eq, <span class="op">-</span>c_eq], [rho <span class="op">-</span> <span class="dv">1</span>, rho <span class="op">-</span> <span class="dv">1</span>], <span class="st">"o"</span>, color<span class="op">=</span>c.accent2, ms<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>    ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="vs">r"</span><span class="dv">$</span><span class="vs">x</span><span class="dv">$</span><span class="vs">"</span>, ylabel<span class="op">=</span><span class="vs">r"</span><span class="dv">$</span><span class="vs">z</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a>themed(draw, figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="dv">5</span>))</span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a>A trajectory on the Lorenz attractor, projected onto the $(x, z)$ plane. The two dots are $C_\pm$.</span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a>The trajectory circles one equilibrium, then the other, switching in a sequence that looks random. Whether this picture really contains a *strange attractor*, rather than being a numerical artifact, stayed open until @tucker2002 settled it with a computer-assisted proof.</span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a><span class="fu">## Sensitive dependence</span></span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a>@fig-separation follows two trajectories that start $10^{-8}$ apart on the attractor. Their distance grows roughly like $e^{\lambda_1 t}$, where $\lambda_1 \approx 0.906$ is the largest Lyapunov exponent of the attractor, until it reaches the size of the attractor itself. After that the two trajectories are unrelated. This is why weather forecasts have a horizon, however good the model.</span>
+<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a>::: {#fig-separation}</span>
+<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a><span class="co">#| renderings: [light, dark]</span></span>
+<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-alt: "Distance between two Lorenz trajectories starting 1e-8 apart, on a log scale. It grows along a straight line of slope about 0.9 for roughly 20 time units, then saturates at the size of the attractor."</span></span>
+<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a>start <span class="op">=</span> u[<span class="op">-</span><span class="dv">1</span>]  <span class="co"># a point already on the attractor, from the previous figure</span></span>
+<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a>t, a <span class="op">=</span> rk4(lorenz, start, <span class="dv">45</span>, h<span class="op">=</span><span class="fl">0.005</span>)</span>
+<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a>_, b <span class="op">=</span> rk4(lorenz, start <span class="op">+</span> [<span class="fl">1e-8</span>, <span class="dv">0</span>, <span class="dv">0</span>], <span class="dv">45</span>, h<span class="op">=</span><span class="fl">0.005</span>)</span>
+<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a>dist <span class="op">=</span> np.linalg.norm(a <span class="op">-</span> b, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> draw(fig, ax, c):</span>
+<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a>    ax.semilogy(t, dist, color<span class="op">=</span>c.accent, lw<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a>    ax.semilogy(t, <span class="fl">1e-8</span> <span class="op">*</span> np.exp(<span class="fl">0.906</span> <span class="op">*</span> t), <span class="st">"--"</span>, color<span class="op">=</span>c.accent2, lw<span class="op">=</span><span class="dv">1</span>, label<span class="op">=</span><span class="vs">r"</span><span class="dv">$</span><span class="vs">10</span><span class="dv">^</span><span class="vs">{-8} e</span><span class="dv">^</span><span class="vs">{0</span><span class="dv">.</span><span class="vs">906</span><span class="ch">\,</span><span class="vs">t}</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a>    ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="vs">r"</span><span class="dv">$</span><span class="vs">t</span><span class="dv">$</span><span class="vs">"</span>, ylabel<span class="op">=</span><span class="st">"distance"</span>, ylim<span class="op">=</span>(<span class="fl">1e-9</span>, <span class="fl">1e3</span>))</span>
+<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a>    ax.legend(loc<span class="op">=</span><span class="st">"lower right"</span>)</span>
+<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a>themed(draw, figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="fl">3.6</span>))</span>
+<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a>Distance between two trajectories started $10^{-8}$ apart.</span>
+<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a>For more on the Lorenz equations, see @strogatz2015 <span class="co">[</span><span class="ot">ch. 9</span><span class="co">]</span> and @hirsch2013 <span class="co">[</span><span class="ot">ch. 14</span><span class="co">]</span>.</span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026 Nam Le · Content licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Built with <a href="https://quarto.org">Quarto</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
