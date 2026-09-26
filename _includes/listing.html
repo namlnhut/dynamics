@@ -1,0 +1,31 @@
+<!-- Listing page enhancements, included after the body of index.qmd. -->
+<script>
+// Number posts: oldest post is #1, so a post keeps its number as new ones are added.
+(() => {
+  const posts = document.querySelectorAll(".quarto-listing .quarto-post[data-index]");
+  const total = posts.length;
+  posts.forEach((post) => {
+    const title = post.querySelector(".listing-title");
+    if (!title) return;
+    const n = document.createElement("span");
+    n.className = "post-number";
+    n.textContent = `#${total - Number(post.dataset.index)}`;
+    title.prepend(n);
+  });
+})();
+
+// Typeset math in descriptions. The pager removes posts beyond page 1 before MathJax
+// runs, so typeset again whenever the list shows a new page or filter result.
+window.addEventListener("DOMContentLoaded", () => {
+  const listings = window["quarto-listings"] || {};
+  const typeset = (el) => window.MathJax?.startup?.promise
+    .then(() => window.MathJax.typesetPromise([el]))
+    .catch((err) => console.warn("MathJax typeset failed:", err));
+  for (const [id, list] of Object.entries(listings)) {
+    const el = document.getElementById(id);
+    if (!el) continue;
+    typeset(el);
+    list.on("updated", () => typeset(el));
+  }
+});
+</script>

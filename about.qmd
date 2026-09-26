@@ -1,0 +1,20 @@
+---
+title: "About"
+image: assets/favicon.svg
+about:
+  template: jolla
+  image-shape: rounded
+  image-width: 8em
+  links:
+    - icon: rss
+      text: RSS
+      href: index.xml
+    # - icon: github
+    #   text: GitHub
+    #   href: https://github.com/<username>
+    # - icon: envelope
+    #   text: Email
+    #   href: mailto:<address>
+---
+
+Notes on mathematics and dynamical systems: flows, fixed points, stability and bifurcations, with worked examples and phase portraits.

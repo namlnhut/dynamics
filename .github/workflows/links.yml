@@ -1,0 +1,36 @@
+name: Check links
+
+# Runs separately from publishing, so a dead external link never blocks a deploy.
+on:
+  workflow_dispatch:
+  push:
+    branches: main
+  schedule:
+    - cron: "0 6 * * 1"   # Mondays 06:00 UTC, to catch links that die later
+
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          version: 1.10.18
+
+      - name: Render site
+        uses: quarto-dev/quarto-actions/render@v2
+
+      - name: Check links
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --no-progress
+            --root-dir "${{ github.workspace }}/_site"
+            --exclude "^https://dynamics\.namln\.org"
+            --accept "200..=299,403,429"
+            --max-retries 3
+            "_site/**/*.html"
+          fail: true

@@ -1,0 +1,53 @@
+project:
+  type: website
+  output-dir: _site
+  resources:
+    - CNAME
+  post-render:
+    - scripts/fix-social-descriptions.py
+
+website:
+  title: "Dynamical Systems"
+  site-url: "https://dynamics.namln.org"
+  draft-mode: gone
+  description: "Notes on mathematics and dynamical systems."
+  favicon: assets/favicon.svg
+  open-graph: true
+  twitter-card: true
+  navbar:
+    left:
+      - href: index.qmd
+        text: Posts
+      - href: about.qmd
+        text: About
+    right:
+      # - icon: github
+      #   href: https://github.com/<username>
+      #   aria-label: GitHub
+      - icon: rss
+        href: index.xml
+        aria-label: RSS feed
+  page-footer:
+    left: "© 2026 Nam Le · Content licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)"
+    right: "Built with [Quarto](https://quarto.org)"
+
+bibliography: references.bib
+
+# Plain-text copy of descriptions that contain math, for <meta> tags and link previews.
+filters:
+  - _filters/description-text.lua
+
+execute:
+  freeze: auto
+
+format:
+  html:
+    theme:
+      light: [flatly, assets/scss/footer.scss]
+      dark: [darkly, assets/scss/footer.scss]
+    css: assets/css/styles.css
+    include-in-header: _includes/mathjax.html
+    html-math-method: mathjax
+    toc: true
+    code-fold: true
+    code-tools: true

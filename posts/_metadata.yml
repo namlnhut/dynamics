@@ -1,0 +1,19 @@
+# Defaults for every post in posts/.
+author: "Nam Le"
+date-format: "D MMMM YYYY"
+citation: true
+google-scholar: true
+title-block-banner: false
+
+# Comments via GitHub Discussions (https://giscus.app). Enable Discussions on the repo,
+# install the giscus app on it, fill in the repo and uncomment.
+# comments:
+#   giscus:
+#     repo: <username>/dynamics-blog
+#     category: Comments
+#     mapping: pathname
+#     reactions-enabled: true
+#     input-position: top
+#     theme:
+#       light: light
+#       dark: dark

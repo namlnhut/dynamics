@@ -1,0 +1,100 @@
+---
+title: "The Lorenz system"
+description: "Three equations from a convection model that gave chaos its butterfly: symmetry, dissipation, equilibria and sensitive dependence."
+date: 2026-09-12
+categories: [chaos, flows]
+---
+
+```{python}
+#| include: false
+import sys; sys.path.insert(0, "..")
+import numpy as np
+from _blog import themed, rk4
+```
+
+The [Poincaré–Bendixson theorem](../2026-08-15-poincare-bendixson/index.qmd) rules out chaos for planar flows. @lorenz1963 found it in three dimensions, in a drastically truncated model of convection:
+$$
+\dot x = \sigma (y - x), \qquad \dot y = x(\rho - z) - y, \qquad \dot z = xy - \beta z.
+$$ {#eq-lorenz}
+Lorenz's parameters, used throughout, are $\sigma = 10$, $\beta = 8/3$ and $\rho = 28$.
+
+## Basic structure
+
+Three properties can be read off @eq-lorenz directly.
+
+- **Symmetry.** The equations are unchanged by $(x, y, z) \mapsto (-x, -y, z)$, so every trajectory has a mirror twin.
+- **Dissipation.** The divergence of the vector field is $-(\sigma + 1 + \beta) < 0$, a constant. By Liouville's theorem, volumes in phase space shrink like $e^{-(\sigma + 1 + \beta)t}$, so the attractor has zero volume.
+- **Equilibria.** The origin is always an equilibrium. For $\rho > 1$ there are two more,
+$$
+C_\pm = \left(\pm\sqrt{\beta(\rho - 1)},\ \pm\sqrt{\beta(\rho - 1)},\ \rho - 1\right).
+$$
+
+::: {#prp-global}
+For $\rho < 1$ every trajectory of @eq-lorenz tends to the origin.
+:::
+
+::: {.proof}
+Take $V = x^2/\sigma + y^2 + z^2$. A direct computation gives
+$$
+\tfrac12 \dot V = -\left(x - \tfrac{\rho + 1}{2}\,y\right)^2 - \left(1 - \left(\tfrac{\rho + 1}{2}\right)^2\right) y^2 - \beta z^2.
+$$
+For $\rho < 1$ we have $(\rho + 1)/2 < 1$, so $\dot V < 0$ away from the origin. Since $V$ is radially unbounded, the origin is globally asymptotically stable by the [Lyapunov and LaSalle theorems](../2026-08-08-lyapunov-functions/index.qmd).
+:::
+
+As $\rho$ increases, $C_\pm$ appear at $\rho = 1$ and are stable until a subcritical [Hopf bifurcation](../2026-08-22-hopf-bifurcation/index.qmd) at
+$$
+\rho_H = \frac{\sigma(\sigma + \beta + 3)}{\sigma - \beta - 1} \approx 24.74.
+$$
+At $\rho = 28$ all three equilibria are unstable. Yet trajectories stay bounded, since every one eventually enters a fixed large ellipsoid [@strogatz2015, sec. 9.2]. Combined with the dissipation above, they wander forever on a bounded set of zero volume without settling down.
+
+## The attractor
+
+::: {#fig-attractor}
+```{python}
+#| renderings: [light, dark]
+#| fig-alt: "Projection of a long Lorenz trajectory onto the x-z plane, forming two lobes around the equilibria C plus and C minus, like butterfly wings."
+sigma, beta, rho = 10.0, 8 / 3, 28.0
+lorenz = lambda u: np.array([sigma * (u[1] - u[0]), u[0] * (rho - u[2]) - u[1], u[0] * u[1] - beta * u[2]])
+t, u = rk4(lorenz, [1.0, 1.0, 1.0], 60, h=0.005)
+u = u[t > 5]
+c_eq = np.sqrt(beta * (rho - 1))
+
+def draw(fig, ax, c):
+    ax.plot(u[:, 0], u[:, 2], color=c.accent, lw=0.35, alpha=0.9)
+    ax.plot([c_eq, -c_eq], [rho - 1, rho - 1], "o", color=c.accent2, ms=5)
+    ax.set(xlabel=r"$x$", ylabel=r"$z$")
+
+themed(draw, figsize=(7, 5))
+```
+
+A trajectory on the Lorenz attractor, projected onto the $(x, z)$ plane. The two dots are $C_\pm$.
+:::
+
+The trajectory circles one equilibrium, then the other, switching in a sequence that looks random. Whether this picture really contains a *strange attractor*, rather than being a numerical artifact, stayed open until @tucker2002 settled it with a computer-assisted proof.
+
+## Sensitive dependence
+
+@fig-separation follows two trajectories that start $10^{-8}$ apart on the attractor. Their distance grows roughly like $e^{\lambda_1 t}$, where $\lambda_1 \approx 0.906$ is the largest Lyapunov exponent of the attractor, until it reaches the size of the attractor itself. After that the two trajectories are unrelated. This is why weather forecasts have a horizon, however good the model.
+
+::: {#fig-separation}
+```{python}
+#| renderings: [light, dark]
+#| fig-alt: "Distance between two Lorenz trajectories starting 1e-8 apart, on a log scale. It grows along a straight line of slope about 0.9 for roughly 20 time units, then saturates at the size of the attractor."
+start = u[-1]  # a point already on the attractor, from the previous figure
+t, a = rk4(lorenz, start, 45, h=0.005)
+_, b = rk4(lorenz, start + [1e-8, 0, 0], 45, h=0.005)
+dist = np.linalg.norm(a - b, axis=1)
+
+def draw(fig, ax, c):
+    ax.semilogy(t, dist, color=c.accent, lw=1)
+    ax.semilogy(t, 1e-8 * np.exp(0.906 * t), "--", color=c.accent2, lw=1, label=r"$10^{-8} e^{0.906\,t}$")
+    ax.set(xlabel=r"$t$", ylabel="distance", ylim=(1e-9, 1e3))
+    ax.legend(loc="lower right")
+
+themed(draw, figsize=(7, 3.6))
+```
+
+Distance between two trajectories started $10^{-8}$ apart.
+:::
+
+For more on the Lorenz equations, see @strogatz2015 [ch. 9] and @hirsch2013 [ch. 14].

@@ -1,0 +1,10 @@
+/*-- scss:rules --*/
+// Footer uses the same colours as the navbar in both the light and dark theme.
+.nav-footer {
+  background-color: $navbar-bg;
+  color: $navbar-fg;
+  border-top: none;
+
+  a { color: $navbar-fg; text-decoration: underline; text-underline-offset: 2px; }
+  a:hover, a:focus { color: $navbar-hl; }
+}

@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# Refuse to push when _freeze/ is stale, since the CI build cannot run Python.
+exec python3 "$(git rev-parse --show-toplevel)/scripts/check-freeze.py"

@@ -1,0 +1,31 @@
+name: Quarto Publish
+
+on:
+  workflow_dispatch:
+  push:
+    branches: main
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          version: 1.10.18
+
+      - name: Check frozen outputs are up to date
+        run: python3 scripts/check-freeze.py
+
+      # Code cells are not executed in CI: results come from the committed _freeze/ dir.
+      - name: Render and publish to gh-pages
+        uses: quarto-dev/quarto-actions/publish@v2
+        with:
+          target: gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

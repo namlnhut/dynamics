@@ -1,0 +1,18 @@
+---
+title: "Posts"
+listing:
+  contents: posts
+  sort: "date desc"
+  type: default
+  categories: true
+  feed: true
+  fields: [image, date, title, description, reading-time, categories]
+  date-format: "D MMM YYYY"
+  image-align: left
+  filter-ui: true
+  sort-ui: false
+  page-size: 2
+page-layout: full
+title-block-banner: false
+include-after-body: _includes/listing.html
+---
